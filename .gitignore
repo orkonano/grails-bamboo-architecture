@@ -32,3 +32,5 @@
 #IDE
 .project
 .classpath
+.idea/
+*.iml
