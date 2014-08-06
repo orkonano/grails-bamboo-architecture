@@ -5,8 +5,8 @@ class GrailsBambooArchitectureGrailsPlugin {
     def grailsVersion = "2.4 > *"
     // resources that are excluded from plugin packaging
     def pluginExcludes = [
-        "grails-app/views/error.gsp",
-        "grails-app/domain/ar/com/bamboo/framework/Person.groovy"
+            "grails-app/views/error.gsp",
+            "grails-app/domain/ar/com/bamboo/framework/Person.groovy"
     ]
 
     // TODO Fill in these fields
@@ -27,17 +27,17 @@ Tanto a nivel de Clases de Servicio, como de Dominio
     def license = "APACHE"
 
     // Details of company behind the plugin (if there is one)
-    def organization = [ name: "Bamboo" ]
+    def organization = [name: "Bamboo"]
 
     // Any additional developers beyond the author specified above.
-    def developers = [ [ name: "Mariano Kfuri", email: "marianoekfuri@gmail.com" ],
-                       [ name: "Maximiliano Micciullo", email: "mmmicciullo@gmail.com" ]]
+    def developers = [[name: "Mariano Kfuri", email: "marianoekfuri@gmail.com"],
+                      [name: "Maximiliano Micciullo", email: "mmmicciullo@gmail.com"]]
 
     // Location of the plugin's issue tracker.
-    def issueManagement = [ system: "Github", url: "https://github.com/orkonano/grails-bamboo-architecture/issues" ]
+    def issueManagement = [system: "Github", url: "https://github.com/orkonano/grails-bamboo-architecture/issues"]
 
     // Online location of the plugin's browseable source code.
-     def scm = [ url: "https://github.com/orkonano/grails-bamboo-architecture.git" ]
+    def scm = [url: "https://github.com/orkonano/grails-bamboo-architecture.git"]
 
     def doWithWebDescriptor = { xml ->
         // TODO Implement additions to web.xml (optional), this event occurs before
