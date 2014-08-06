@@ -34,3 +34,6 @@
 .classpath
 .idea/
 *.iml
+
+#zip
+*.zip.*
