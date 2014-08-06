@@ -32,3 +32,8 @@
 #IDE
 .project
 .classpath
+.idea/
+*.iml
+
+#zip
+*.zip.*
