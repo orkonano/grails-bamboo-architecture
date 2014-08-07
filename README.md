@@ -23,3 +23,8 @@ Tener en cuenta que se tiene que tener configurado en .grails/setting.groovy
 grails.project.repos.cloudbees.url = "dav:https://repository-orkoapp.forge.cloudbees.com/snapshot/"
 grails.project.repos.cloudbees.username = yourUsername
 grails.project.repos.cloudbees.password = yourPass
+
+
+- Logging
+Todas las clases artefacto tienen logging. Utilizando por ejemplo grails.app.services, loggea todos los service.
+Igualmente, la clase BaseService, siempre va a ser extendida, por lo que el logging va a quedar relacionado con la clase padre
