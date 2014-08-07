@@ -1,3 +1,9 @@
+Version 0.1.2:
+ - Merge branch 'feature-logging' into developer
+ - logging clase Service
+ - cambio de version en el archivo de configuración del plugin
+ - Merge branch 'realese-0.1.1' into developer
+
 Version 0.1.1:
  - Modificación de enable por enabled en EntityBase
  - Cambios en developer
