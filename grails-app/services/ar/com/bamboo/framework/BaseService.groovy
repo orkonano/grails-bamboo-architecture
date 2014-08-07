@@ -18,7 +18,7 @@ class BaseService {
 
     @Transactional
     public void disabled(domainToDisable){
-        domainToDisable.enable = false
+        domainToDisable.enabled = false
         domainToDisable.save()
     }
 
