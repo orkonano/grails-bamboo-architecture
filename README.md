@@ -10,7 +10,7 @@ La clase BaseService implementa los métodos básicos para guardar, deshabilitar
 
 
 - Repositorio maven
-https://repository-maximicciullo.forge.cloudbees.com/release/
+https://repository-orkoapp.forge.cloudbees.com/snapshot/
 
 1) Para instalar el plugin en el entorno local, ejecutar
 grails maven-install
