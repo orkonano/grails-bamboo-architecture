@@ -12,6 +12,10 @@ class BaseService {
             domainToSave.save()
             return true
         }else{
+            log.debug("""
+       El dominio de la clase ${domainToSave.getClass()}  no pasó la validación.
+       Se encontraron los siguientes errores: ${domainToSave.errors}
+                    """)
             return false
         }
     }
