@@ -47,7 +47,7 @@ class BaseServiceSpec extends Specification {
         when: "Cuando se llama a un objeto para deshabilitado"
         service.disabled(personToDisable)
         then: "El objeto queda deshabilitado"
-        !personToDisable.enable
+        !personToDisable.enabled
     }
 
     void "test listWithLimit method"() {
@@ -58,12 +58,12 @@ class BaseServiceSpec extends Specification {
             Person person = new Person(name: "Bamboo ${i}")
                     .save(flush: true, failOnError: true)
             if ( (i % 2) == 0){
-                person.enable = false
+                person.enabled = false
                 person.save(flush: true, failOnError: true)
             }
         }
         def where = {
-            enable == true
+            enabled == true
         } as DetachedCriteria<Person>
         Map params = [max: 5]
         when: "Cuando busco objetos de alguna clase con limite 5 y sólo habilitado"
@@ -86,15 +86,15 @@ class BaseServiceSpec extends Specification {
         mockForConstraintsTests Person
         //Guardo varias personas para poder hacer el test luego
         for ( i in 1..1300 ){
-            Person person = new Person(name: "Bamboo ${i}", email: "bamboo${i}@gmail.com", address: "Bamboo St ${i}")
+            Person person = new Person(name: "Bamboo ${i}")
                     .save(flush: true, failOnError: true)
             if ( (i % 2) == 0){
-                person.enable = false
+                person.enabled = false
                 person.save(flush: true, failOnError: true)
             }
         }
         def where1 = {
-            enable == true
+            enabled == true
         } as DetachedCriteria<Person>
         when: "Cuando busco objetos de de alguna clase con enable y supera la cantidad maxima de chunk"
         List<Person> listResult = service.listAll(Person.class, where1)

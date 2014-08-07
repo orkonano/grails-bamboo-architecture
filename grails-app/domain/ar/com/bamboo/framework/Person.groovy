@@ -9,4 +9,9 @@ class Person extends BaseEntity{
     static constraints = {
         name blank: false
     }
+
+    @Override
+    protected void executeMoreBeforeInsert() {
+
+    }
 }

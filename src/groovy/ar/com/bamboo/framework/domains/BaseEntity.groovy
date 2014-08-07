@@ -6,12 +6,15 @@ import groovy.transform.CompileStatic
  * Created by orko on 05/08/14.
  */
 @CompileStatic
-class BaseEntity {
+abstract class BaseEntity {
 
-    boolean enable
+    boolean enabled
 
 
     void beforeInsert() {
-        this.enable = true
+        this.enabled = true
+        this.executeMoreBeforeInsert()
     }
+
+    abstract  protected void  executeMoreBeforeInsert();
 }

@@ -1,3 +1,12 @@
+Version 0.1.1:
+ - Modificación de enable por enabled en EntityBase
+ - Cambios en developer
+ - Agrego la configuración para que tome travis-ci
+ - Merge branch 'feature-init-arquitectura' into developer
+ - Modificación al gitignore
+ - Cambios imporantes en el README.md y en el BuildConfig.groovy respecto al repo default
+ - Primer commit, con el proyecto vacío
+
 Version 0.1.0
  - Initial commit
 
