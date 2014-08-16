@@ -1,4 +1,4 @@
-package ar.com.bamboo.framework.domains.ar.com.bamboo.framework.exceptions
+package ar.com.bamboo.framework.exceptions
 
 import groovy.transform.CompileStatic
 
