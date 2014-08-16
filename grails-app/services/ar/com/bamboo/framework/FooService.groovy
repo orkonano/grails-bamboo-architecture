@@ -1,13 +1,12 @@
-package grails.bamboo.architecture
+package ar.com.bamboo.framework
 
 import ar.com.bamboo.framework.services.BaseService
 import grails.transaction.Transactional
 
-class PruebaService extends BaseService{
+class FooService extends BaseService{
 
     @Transactional
     boolean save(domainToSave, boolean isSave) {
-       return super.save(domainToSave) || isSave
+        return super.save(domainToSave) || isSave
     }
-
 }
