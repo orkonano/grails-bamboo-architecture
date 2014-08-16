@@ -1,5 +1,6 @@
-package ar.com.bamboo.framework
+package grails.bamboo.architecture
 
+import ar.com.bamboo.framework.Person
 import grails.gorm.DetachedCriteria
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
@@ -8,9 +9,9 @@ import spock.lang.Specification
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
-@TestFor(BaseService)
+@TestFor(PruebaService)
 @Mock([Person])
-class BaseServiceSpec extends Specification {
+class PruebaServiceSpec extends Specification {
 
     def setup() {
     }
@@ -25,16 +26,17 @@ class BaseServiceSpec extends Specification {
         Person personWithoutErrors = new Person(name: "Mariano")
 
         when: "Cuando se intenta guardar un objeto que tiene que tirar error"
-        boolean errors = service.save(personWithErrors)
+        boolean success = service.save(personWithErrors)
 
         then: "El metodo devuelve los errores"
-        !errors
+        !success
 
         when: "Cuando se guarda un objeto sin errores"
-        errors = service.save(personWithoutErrors)
+        success = service.save(personWithoutErrors)
+
 
         then: "El metodo no devuelve los errores vacios y el id del objeto cargado"
-        errors
+        success
         personWithoutErrors.id
     }
 
