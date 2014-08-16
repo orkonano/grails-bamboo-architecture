@@ -1,5 +1,6 @@
 package ar.com.bamboo.framework.exceptions
 
+import grails.validation.ValidationErrors
 import groovy.transform.CompileStatic
 
 /**
@@ -8,6 +9,6 @@ import groovy.transform.CompileStatic
 @CompileStatic
 class ValidatorException extends RuntimeException{
 
-    private Map errors
+    private ValidationErrors errors
 
 }
