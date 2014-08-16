@@ -2,7 +2,7 @@ package ar.com.bamboo.framework.services
 
 import grails.transaction.Transactional
 
-class BaseService {
+abstract class BaseService {
 
     private static final Integer MAX_BUNK = 500;
 

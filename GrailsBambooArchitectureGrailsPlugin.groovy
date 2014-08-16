@@ -6,7 +6,8 @@ class GrailsBambooArchitectureGrailsPlugin {
     // resources that are excluded from plugin packaging
     def pluginExcludes = [
             "grails-app/views/error.gsp",
-            "grails-app/domain/ar/com/bamboo/framework/Person.groovy"
+            "grails-app/domain/ar/com/bamboo/framework/Person.groovy",
+            "grails-app/service/grails/bamboo/architecture/PruebaService.grovvy"
     ]
 
     // TODO Fill in these fields
