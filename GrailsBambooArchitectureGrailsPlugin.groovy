@@ -7,7 +7,7 @@ class GrailsBambooArchitectureGrailsPlugin {
     def pluginExcludes = [
             "grails-app/views/error.gsp",
             "grails-app/domain/ar/com/bamboo/framework/Person.groovy",
-            "grails-app/service/ar/com/bamboo/framework/FooService.grovvy"
+            "grails-app/services/ar/com/bamboo/framework/FooService.groovy"
     ]
 
     // TODO Fill in these fields
