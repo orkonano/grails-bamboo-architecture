@@ -8,4 +8,5 @@ class FooService extends BaseService{
     boolean save(domainToSave, boolean isSave) {
         return super.save(domainToSave) || isSave
     }
+
 }

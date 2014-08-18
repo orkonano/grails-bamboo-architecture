@@ -44,7 +44,10 @@ class FooServiceSpec extends Specification {
         mockForConstraintsTests Person
         Person personToDisable = new Person(name: "Mariano")
         personToDisable.save(flush: true, failOnError: true)
-
+a
+o
+a
+l
         when: "Cuando se llama a un objeto para deshabilitado"
         service.disabled(personToDisable)
         then: "El objeto queda deshabilitado"
@@ -111,4 +114,6 @@ class FooServiceSpec extends Specification {
         then: "El resultado es el total sin limite"
         !listResult
     }
+
+
 }

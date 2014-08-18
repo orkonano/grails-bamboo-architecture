@@ -26,14 +26,19 @@ class BaseService {
         domainToDisable.save()
     }
 
-    public List<Object> listWithLimit(Class clazz,  where,  Map paramsQuery){
+     @Transactional(readOnly = true)
+     public <T> T getById(T clazz){
+        return clazz.get(clazz.id)
+    }
+
+    protected List<Object> listWithLimit(Class clazz,  where,  Map paramsQuery){
         def query = clazz.where(where)
         Integer count = query.count()
         List<Object> objects = query.list(paramsQuery ?: [:])
         return [objects, count]
     }
 
-    public List<Object> listAll(Class clazz, where){
+    protected List<Object> listAll(Class clazz, where){
         def query = clazz.where(where)
         Integer count = query.count()
         if (count != 0){
