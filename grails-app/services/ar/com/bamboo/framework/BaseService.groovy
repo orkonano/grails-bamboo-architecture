@@ -38,8 +38,13 @@ class BaseService {
         return [objects, count]
     }
 
-    protected List<Object> listAll(Class clazz, where){
+    protected List<Object> listAll(Class clazz, where, Map options = null){
         def query = clazz.where(where)
+        if (options){
+            if (options.projections){
+                query = query.property(options.projections)
+            }
+        }
         Integer count = query.count()
         if (count != 0){
             List<Object> objects = new ArrayList<Objects>(count)

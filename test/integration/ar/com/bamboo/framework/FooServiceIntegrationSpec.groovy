@@ -34,4 +34,14 @@ class FooServiceIntegrationSpec extends Specification {
         then: "El objeto persona es el que guardé antes"
         !personDB
     }
+
+    void "test listAll with projections method"() {
+
+        when: "Cuando busco la persona por el id que acabo de registrar"
+        List<Long> idsPerson = fooService.listProjections()
+        then: "El objeto persona es el que guardé antes"
+        idsPerson
+        idsPerson[0] instanceof Long
+
+    }
 }
