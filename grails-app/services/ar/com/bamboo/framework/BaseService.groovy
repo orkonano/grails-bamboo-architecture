@@ -38,13 +38,9 @@ class BaseService {
         return [objects, count]
     }
 
-    protected List<Object> listAll(Class clazz, where, Map options = null){
+    protected List<Object> listAll(Class clazz, where){
         def query = clazz.where(where)
-        if (options){
-            if (options.projections){
-                query = query.property(options.projections)
-            }
-        }
+
         Integer count = query.count()
         if (count != 0){
             List<Object> objects = new ArrayList<Objects>(count)
@@ -63,5 +59,29 @@ class BaseService {
         }else{
             return []
         }
+    }
+
+    protected List<Object> listAll(Class clazz, where, Map options){
+        def query = clazz.where(where)
+        if (options){
+            if (options.projections){
+                query = query.property(options.projections)
+            }
+        }
+        List<Object> objects = new ArrayList<Objects>()
+        boolean continueSearch = true
+        Map paramsQuery = [:]
+        paramsQuery.max = MAX_BUNK
+        paramsQuery.offset = 0
+        while(continueSearch){
+            List<Object> queryResult = query.list(paramsQuery)
+            objects.addAll(queryResult)
+            continueSearch = queryResult.size() == MAX_BUNK
+            if (continueSearch){
+                paramsQuery.offset += MAX_BUNK
+            }
+        }
+        return objects
+
     }
 }
