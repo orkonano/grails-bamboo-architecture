@@ -17,4 +17,9 @@ class FooService extends BaseService{
         return this.listAll(Person.class, where, options)
     }
 
+    @Transactional(readOnly = true)
+    Person getById(Number id){
+        return super.getById(Person.class, id)
+    }
+
 }

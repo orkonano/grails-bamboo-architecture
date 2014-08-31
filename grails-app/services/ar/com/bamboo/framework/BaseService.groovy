@@ -26,9 +26,8 @@ class BaseService {
         domainToDisable.save()
     }
 
-     @Transactional(readOnly = true)
-     public <T> T getById(T clazz){
-        return clazz.get(clazz.id)
+     public <T> T getById(Class clazz, Number id){
+        return clazz.get(id)
     }
 
     protected List<Object> listWithLimit(Class clazz,  where,  Map paramsQuery){
