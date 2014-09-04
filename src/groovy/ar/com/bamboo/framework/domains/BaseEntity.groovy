@@ -9,6 +9,8 @@ import groovy.transform.CompileStatic
 abstract class BaseEntity {
 
     boolean enabled
+    Date dateCreated
+    Date lastUpdated
 
 
     void beforeInsert() {
