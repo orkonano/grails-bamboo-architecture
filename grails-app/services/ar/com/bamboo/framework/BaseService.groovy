@@ -75,17 +75,15 @@ class BaseService {
     }
 
     /**
-     * Método para utilizar cuando se quiere buscar todos los elementos que corresponden con el
-     * where (Debe ser Criteria o DetachedCriteria) pasado por parámetro
-     * Este método se debe usar cuando se quiere obtener los resultados mediante Criteria
-     * Por ejemplo Persona.where{ query } o DetachedCriteria dc = new DetachedCriteria.
+     * Método para utilizar cuando se quiere buscar todos los elementos que corresponden a la query
+     * escrita en HQL
      *
      * Es método hace uso de queries más cortas para evitar traer de la base de datos mucha información
      * y así agilizar las queries. Trae de a 500 resultados.
+
      * @param clazz Clase a la cual se va a ejecutar la query
-     * @param where Where query o DetachedCriteria con las restricciones del query
-     * @param options Opciones para la búsqueda como se projecciones. Es un mapa, que si se quiere
-     * buscar proyecciones, se debe pasar por parametro como map[projections: properties]
+     * @param sql La query Hql
+     * @param parameters Se debe cargar los parámetros de la query. También admite los parametros offset y max
      * @return
      */
     protected List<Object> listAllHql(Class clazz, String hql, Map parameters){
