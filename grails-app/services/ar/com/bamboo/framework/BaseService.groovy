@@ -37,30 +37,21 @@ class BaseService {
         return [objects, count]
     }
 
-    protected List<Object> listAll(Class clazz, where){
-        def query = clazz.where(where)
-
-        Integer count = query.count()
-        if (count != 0){
-            List<Object> objects = new ArrayList<Objects>(count)
-            boolean continueSearch = true
-            Map paramsQuery = [:]
-            paramsQuery.max = MAX_BUNK
-            paramsQuery.offset = 0
-            while(continueSearch){
-                objects.addAll(query.list(paramsQuery))
-                continueSearch = objects.size() < count
-                if (continueSearch){
-                    paramsQuery.offset += MAX_BUNK
-                }
-            }
-            return objects
-        }else{
-            return []
-        }
-    }
-
-    protected List<Object> listAll(Class clazz, where, Map options){
+    /**
+     * Método para utilizar cuando se quiere buscar todos los elementos que corresponden con el
+     * where (Debe ser Criteria o DetachedCriteria) pasado por parámetro
+     * Este método se debe usar cuando se quiere obtener los resultados mediante Criteria
+     * Por ejemplo Persona.where{ query } o DetachedCriteria dc = new DetachedCriteria.
+     *
+     * Es método hace uso de queries más cortas para evitar traer de la base de datos mucha información
+     * y así agilizar las queries. Trae de a 500 resultados.
+     * @param clazz Clase a la cual se va a ejecutar la query
+     * @param where Where query o DetachedCriteria con las restricciones del query
+     * @param options Opciones para la búsqueda como se projecciones. Es un mapa, que si se quiere
+     * buscar proyecciones, se debe pasar por parametro como map[projections: properties]
+     * @return
+     */
+    protected List<Object> listAll(Class clazz, where, Map options = [:]){
         def query = clazz.where(where)
         if (options){
             if (options.projections){
@@ -81,6 +72,51 @@ class BaseService {
             }
         }
         return objects
+    }
 
+    /**
+     * Método para utilizar cuando se quiere buscar todos los elementos que corresponden con el
+     * where (Debe ser Criteria o DetachedCriteria) pasado por parámetro
+     * Este método se debe usar cuando se quiere obtener los resultados mediante Criteria
+     * Por ejemplo Persona.where{ query } o DetachedCriteria dc = new DetachedCriteria.
+     *
+     * Es método hace uso de queries más cortas para evitar traer de la base de datos mucha información
+     * y así agilizar las queries. Trae de a 500 resultados.
+     * @param clazz Clase a la cual se va a ejecutar la query
+     * @param where Where query o DetachedCriteria con las restricciones del query
+     * @param options Opciones para la búsqueda como se projecciones. Es un mapa, que si se quiere
+     * buscar proyecciones, se debe pasar por parametro como map[projections: properties]
+     * @return
+     */
+    protected List<Object> listAllHql(Class clazz, String hql, Map parameters){
+        if (parameters == null){
+            log.debug("Los parámetros para ejecutar la query vienen vacíos, inicializo el mapa")
+            parameters = [:]
+        }
+        if (!parameters.offset){
+            log.debug("El parámetro offset no está seteado, lo seteo por default en 0")
+            parameters.offset = 0
+        }
+        if (log.debugEnabled){
+            if (!parameters.max){
+                log.debug("El parámetro limit es seteado por default en $MAX_BUNK")
+            }else{
+                log.debug("Se sobreescribe el parámetro limit por $MAX_BUNK")
+            }
+        }
+
+        parameters.max = MAX_BUNK
+
+        List<Object> objects = new ArrayList<Objects>()
+        boolean continueSearch = true
+        while(continueSearch){
+            List<Object> queryResult = clazz.findAll(hql, parameters)
+            objects.addAll(queryResult)
+            continueSearch = queryResult.size() == MAX_BUNK
+            if (continueSearch){
+                parameters.offset += MAX_BUNK
+            }
+        }
+        return objects
     }
 }

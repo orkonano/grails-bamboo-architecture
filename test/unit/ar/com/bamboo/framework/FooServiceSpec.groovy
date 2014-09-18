@@ -111,7 +111,4 @@ class FooServiceSpec extends Specification {
         then: "El resultado es el total sin limite"
         !listResult
     }
-
-
-
 }
