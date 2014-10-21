@@ -95,12 +95,10 @@ class BaseService {
             log.debug("El parámetro offset no está seteado, lo seteo por default en 0")
             parameters.offset = 0
         }
-        if (log.debugEnabled){
-            if (!parameters.max){
-                log.debug("El parámetro limit es seteado por default en $MAX_BUNK")
-            }else{
-                log.debug("Se sobreescribe el parámetro limit por $MAX_BUNK")
-            }
+        if (!parameters.max){
+            log.debug("El parámetro limit es seteado por default en $MAX_BUNK")
+        }else{
+            log.debug("Se sobreescribe el parámetro limit por $MAX_BUNK")
         }
 
         parameters.max = MAX_BUNK
@@ -116,5 +114,30 @@ class BaseService {
             }
         }
         return objects
+    }
+
+    protected List<Object> listAllHqlWithLimit(Class clazz, String hql, Map parameters){
+        if (parameters == null){
+            log.debug("Los parámetros para ejecutar la query vienen vacíos, inicializo el mapa")
+            parameters = [:]
+        }
+        Integer offset = 0
+        if (parameters.offset){
+            offset = parameters.offset
+            parameters.offset = 0
+        }
+
+        List result = clazz.executeQuery("SELECT count(*) " + hql, parameters)
+        Integer count = result ? result[0] : 0
+
+        parameters.offset = offset
+        if (!parameters.max || Integer.valueOf(parameters.max) > MAX_BUNK){
+            log.debug("El parámetro limit es seteado por default en $MAX_BUNK")
+            parameters.max = MAX_BUNK
+        }
+
+        List<Object> objects = clazz.findAll(hql, parameters)
+
+        return [objects, count]
     }
 }
