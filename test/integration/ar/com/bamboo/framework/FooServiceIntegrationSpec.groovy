@@ -151,5 +151,13 @@ class FooServiceIntegrationSpec extends Specification {
         listResult
         listResult.size() == 151
         count == 651
+
+        when: "Cuando se busca sólo a los habilitados, pero pasando por parametros los valores, con offset y limit y orderBy"
+        hql = " from Person where enabled = :enabled"
+        (listResult, count) = fooService.listAllHqlWithLimit(hql, [enabled: true, offset: 500, orderBy: "name"])
+        then: "Devuelve 151 resultados, se buscó desde la posición 500 y max count de 651"
+        listResult
+        listResult.size() == 151
+        count == 651
     }
 }

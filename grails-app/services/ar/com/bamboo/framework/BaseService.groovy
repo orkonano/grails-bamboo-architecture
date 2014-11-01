@@ -116,6 +116,23 @@ class BaseService {
         return objects
     }
 
+    /**
+     * El método arma la query para devolver la cantidad total de resultados que machean con la query
+     * y además los resultados con limit y offset.
+     *
+     * El mapa paramaters contiene:
+     *  - Los parámetros de la query (la clave es el nombre del parámetro)
+     *  - El limit (Clave del mapa es max)
+     *  - El offset (Clave del mapa offset)
+     *  - Los orderBy (Clave orderBy). El valor del order by es un string sin la palabra ORDER BY.
+     *     Ej: name DESC, year ASC
+     *
+     * El order by, al ponerlo en los parámetros mejora la performance de la query de count.
+     * @param clazz
+     * @param hql
+     * @param parameters
+     * @return
+     */
     protected List<Object> listAllHqlWithLimit(Class clazz, String hql, Map parameters){
         if (parameters == null){
             log.debug("Los parámetros para ejecutar la query vienen vacíos, inicializo el mapa")
@@ -127,6 +144,12 @@ class BaseService {
             parameters.offset = 0
         }
 
+        String orderBy = ""
+        if (parameters.orderBy){
+            orderBy = " ORDER BY " + parameters.orderBy
+            parameters.remove("orderBy")
+        }
+
         List result = clazz.executeQuery("SELECT count(*) " + hql, parameters)
         Integer count = result ? result[0] : 0
 
@@ -134,6 +157,10 @@ class BaseService {
         if (!parameters.max || Integer.valueOf(parameters.max) > MAX_BUNK){
             log.debug("El parámetro limit es seteado por default en $MAX_BUNK")
             parameters.max = MAX_BUNK
+        }
+
+        if (orderBy){
+            hql += orderBy
         }
 
         List<Object> objects = clazz.findAll(hql, parameters)
