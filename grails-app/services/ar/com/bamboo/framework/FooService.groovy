@@ -17,4 +17,19 @@ class FooService extends BaseService{
         return this.listAll(Person.class, where, options)
     }
 
+    @Transactional(readOnly = true)
+    List<Person> listAllHql(String hql, Map params = [:]) {
+        return this.listAllHql(Person.class, hql, params)
+    }
+
+    @Transactional(readOnly = true)
+    List<Object> listAllHqlWithLimit(String hql, Map params = [:]) {
+        return this.listAllHqlWithLimit(Person.class, hql, params)
+    }
+
+    @Transactional(readOnly = true)
+    Person getById(Number id){
+        return super.getById(Person.class, id)
+    }
+
 }
