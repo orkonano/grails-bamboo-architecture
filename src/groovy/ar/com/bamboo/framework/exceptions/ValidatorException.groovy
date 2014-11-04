@@ -9,7 +9,7 @@ import groovy.transform.CompileStatic
 @CompileStatic
 class ValidatorException<T> extends RuntimeException{
 
-    private ValidationErrors errors
-    private T model
+    ValidationErrors errors
+    T model
 
 }
