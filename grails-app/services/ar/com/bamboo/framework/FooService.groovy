@@ -32,4 +32,10 @@ class FooService extends BaseService{
         return super.getById(Person.class, id)
     }
 
+    @Transactional(readOnly = true)
+    Person getByName(String nameArgument){
+        def where = { name == nameArgument } as DetachedCriteria<Person>
+        return super.getUnique(Person.class, where)
+    }
+
 }

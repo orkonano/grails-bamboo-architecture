@@ -37,6 +37,12 @@ class BaseService {
         return [objects, count]
     }
 
+    protected Object getUnique(Class clazz, where){
+        def query = clazz.where(where)
+        List<Object> objects = query.list([max: 1])
+        return objects ? objects[0] : null
+    }
+
     /**
      * Método para utilizar cuando se quiere buscar todos los elementos que corresponden con el
      * where (Debe ser Criteria o DetachedCriteria) pasado por parámetro

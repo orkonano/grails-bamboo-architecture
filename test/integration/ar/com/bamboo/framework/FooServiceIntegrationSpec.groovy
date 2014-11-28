@@ -160,4 +160,19 @@ class FooServiceIntegrationSpec extends Specification {
         listResult.size() == 151
         count == 651
     }
+
+    void "test getUnique"() {
+        given:
+         new Person(name: "alberto").save(flush: true, failOnError: true)
+        when: "Cuando busco una persona que no existe por nombre"
+        Person person = fooService.getByName("hhhhhhhhhhhhhhhhhhhhh")
+        then: "el objeto es nulo"
+        !person
+
+        when: "Cuando busco una persona que  existe por nombre"
+        person = fooService.getByName("alberto")
+        then: "el objeto no es nulo"
+        person
+
+    }
 }
