@@ -103,11 +103,14 @@ class BaseService {
         }
         if (!parameters.max){
             log.debug("El parámetro limit es seteado por default en $MAX_BUNK")
+            parameters.max = MAX_BUNK
         }else{
-            log.debug("Se sobreescribe el parámetro limit por $MAX_BUNK")
+            if (parameters.max > MAX_BUNK){
+                parameters.max = MAX_BUNK
+                log.debug("Se sobreescribe el parámetro limit por $MAX_BUNK")
+            }
         }
 
-        parameters.max = MAX_BUNK
 
         List<Object> objects = new ArrayList<Objects>()
         boolean continueSearch = true

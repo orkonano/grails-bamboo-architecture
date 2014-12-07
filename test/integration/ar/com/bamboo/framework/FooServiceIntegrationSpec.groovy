@@ -77,9 +77,9 @@ class FooServiceIntegrationSpec extends Specification {
         listResult
         listResult.size() == 651
 
-        when: "Cuando se busca sólo a los habilitados, pero pasando por parametros los valores, con offset y limit"
+        when: "Cuando se busca sólo a los habilitados, pero pasando por parametros los valores, con offset y limit mayor al limite"
         hql = " from Person where enabled = :enabled"
-        listResult = fooService.listAllHql(hql, [enabled: true, offset: 0, max: 10])
+        listResult = fooService.listAllHql(hql, [enabled: true, offset: 0, max: 1000])
         then: "Devuelve 650 resultados, se buscó desde el comienzo y se ignoró al limit"
         listResult
         listResult.size() == 651
@@ -90,6 +90,13 @@ class FooServiceIntegrationSpec extends Specification {
         then: "Devuelve 550 resultados, se buscó desde la posición 100 y se ignoró al limit"
         listResult
         listResult.size() == 551
+
+        when: "Cuando se busca sólo a los habilitados, pero pasando por parametros los valores, con offset y limit menores al limite"
+        hql = " from Person where enabled = :enabled"
+        listResult = fooService.listAllHql(hql, [enabled: true, offset: 0, max: 10])
+        then: "Devuelve 650 resultados, se buscó desde el comienzo y se respeta al limit"
+        listResult
+        listResult.size() == 10
     }
 
     void "test listAllWithLimit Con HQL method"() {
