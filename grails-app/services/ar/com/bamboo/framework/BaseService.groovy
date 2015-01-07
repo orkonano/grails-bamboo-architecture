@@ -37,10 +37,20 @@ class BaseService {
         return [objects, count]
     }
 
-    protected Object getUnique(Class clazz, where){
-        def query = clazz.where(where)
-        List<Object> objects = query.list([max: 1])
-        return objects ? objects[0] : null
+    /**
+     * Devuelve el primer elemento encontrado de la query
+     * @param clazz
+     * @param hql
+     * @param parameters
+     * @return
+     */
+    protected Object getUnique(Class clazz, String hql, Map parameters){
+        if (parameters == null){
+            parameters = []
+        }
+        parameters.max = 1
+        List<Object> queryResult = clazz.executeQuery(hql, parameters)
+        return queryResult ? queryResult[0] : null
     }
 
     /**
