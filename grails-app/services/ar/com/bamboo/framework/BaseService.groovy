@@ -54,6 +54,25 @@ class BaseService {
     }
 
     /**
+     * Pasado una lista de ids, realiza un load de la session de hibernate de todos los ids
+     * @param clazz
+     * @param hql
+     * @param parameters
+     * @return
+     */
+    protected <T extends Serializable> List<Object> loadById(Class clazz, List<T> ids){
+        if (ids){
+            List<Object> result = new ArrayList<>(ids.size())
+            for (id in ids){
+                result.add(clazz.get(id))
+            }
+            return result
+        }else{
+            return new ArrayList<Object>()
+        }
+    }
+
+    /**
      * Método para utilizar cuando se quiere buscar todos los elementos que corresponden con el
      * where (Debe ser Criteria o DetachedCriteria) pasado por parámetro
      * Este método se debe usar cuando se quiere obtener los resultados mediante Criteria
