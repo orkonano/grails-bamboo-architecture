@@ -37,10 +37,39 @@ class BaseService {
         return [objects, count]
     }
 
-    protected Object getUnique(Class clazz, where){
-        def query = clazz.where(where)
-        List<Object> objects = query.list([max: 1])
-        return objects ? objects[0] : null
+    /**
+     * Devuelve el primer elemento encontrado de la query
+     * @param clazz
+     * @param hql
+     * @param parameters
+     * @return
+     */
+    protected Object getUnique(Class clazz, String hql, Map parameters){
+        if (parameters == null){
+            parameters = []
+        }
+        parameters.max = 1
+        List<Object> queryResult = clazz.executeQuery(hql, parameters)
+        return queryResult ? queryResult[0] : null
+    }
+
+    /**
+     * Pasado una lista de ids, realiza un load de la session de hibernate de todos los ids
+     * @param clazz
+     * @param hql
+     * @param parameters
+     * @return
+     */
+    protected <T extends Serializable> List<Object> loadById(Class clazz, List<T> ids){
+        if (ids){
+            List<Object> result = new ArrayList<>(ids.size())
+            for (id in ids){
+                result.add(clazz.get(id))
+            }
+            return result
+        }else{
+            return new ArrayList<Object>()
+        }
     }
 
     /**
