@@ -26,7 +26,7 @@ class BaseService {
         domainToDisable.save()
     }
 
-     public <T> T getById(Class clazz, Number id){
+    public <T> T getById(Class clazz, Number id){
         return clazz.get(id)
     }
 
@@ -164,6 +164,8 @@ class BaseService {
      *  - El offset (Clave del mapa offset)
      *  - Los orderBy (Clave orderBy). El valor del order by es un string sin la palabra ORDER BY.
      *     Ej: name DESC, year ASC
+     *  - projections: Son las proyecciones que se quiere que la query traiga. Si no se pone nada, realiza la ejecución
+     *  de la query sólo con FROM, sin select
      *
      * El order by, al ponerlo en los parámetros mejora la performance de la query de count.
      * @param clazz
@@ -187,6 +189,11 @@ class BaseService {
             orderBy = " ORDER BY " + parameters.orderBy
             parameters.remove("orderBy")
         }
+        String select = ""
+        if (parameters.projections){
+            select = "SELECT " + parameters.projections
+            parameters.remove("projections")
+        }
 
         List result = clazz.executeQuery("SELECT count(*) " + hql, parameters)
         Integer count = result ? result[0] : 0
@@ -201,7 +208,12 @@ class BaseService {
             hql += orderBy
         }
 
-        List<Object> objects = clazz.findAll(hql, parameters)
+        if (select){
+            log.debug("Se agrega el select -las projecciones- a la query")
+            hql = select + " " + hql
+        }
+
+        List<Object> objects = clazz.executeQuery(hql, parameters)
 
         return [objects, count]
     }
