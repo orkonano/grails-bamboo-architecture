@@ -1,5 +1,6 @@
 package ar.com.bamboo.framework
 
+import ar.com.bamboo.framework.persistence.PaginatedResult
 import grails.gorm.DetachedCriteria
 import grails.transaction.Transactional
 
@@ -23,7 +24,7 @@ class FooService extends BaseService{
     }
 
     @Transactional(readOnly = true)
-    List<Object> listAllHqlWithLimit(String hql, Map params = [:]) {
+    PaginatedResult listAllHqlWithLimit(String hql, Map params = [:]) {
         return this.listAllHqlWithLimit(Person.class, hql, params)
     }
 
@@ -35,7 +36,7 @@ class FooService extends BaseService{
     @Transactional(readOnly = true)
     Person getByName(String nameArgument){
         def where = { name == nameArgument } as DetachedCriteria<Person>
-        return super.getUnique(Person.class, where)
+        return super.getUnique(Person.class, where, null)
     }
 
 }
