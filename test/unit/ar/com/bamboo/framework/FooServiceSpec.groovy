@@ -1,5 +1,6 @@
 package ar.com.bamboo.framework
 
+import ar.com.bamboo.framework.persistence.PaginatedResult
 import grails.gorm.DetachedCriteria
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
@@ -68,18 +69,18 @@ class FooServiceSpec extends Specification {
         } as DetachedCriteria<Person>
         Map params = [max: 5]
         when: "Cuando busco objetos de alguna clase con limite 5 y sólo habilitado"
-        def (List<Person> listResult, Integer count) = service.listWithLimit(Person.class, where, params)
+        PaginatedResult paginatedResult = service.listWithLimit(Person.class, where, params)
         then: "El el resultado es el esperado"
-        listResult
-        listResult.size() == 5
-        count == 10
+        paginatedResult.result
+        paginatedResult.result.size() == 5
+        paginatedResult.totalRows == 10
 
         when: "Cuando se busca sin parametros"
-        (listResult, count) = service.listWithLimit(Person.class, where, null)
+        paginatedResult = service.listWithLimit(Person.class, where, null)
         then: "El resultado es el total sin limite"
-        listResult
-        listResult.size() == 10
-        count == 10
+        paginatedResult.result
+        paginatedResult.result.size()  == 10
+        paginatedResult.totalRows == 10
     }
 
     void "test listAll method"() {
