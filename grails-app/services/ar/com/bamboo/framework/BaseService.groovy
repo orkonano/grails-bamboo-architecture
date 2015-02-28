@@ -45,7 +45,7 @@ class BaseService {
      * @param parameters
      * @return
      */
-    protected Object getUnique(Class clazz, String hql, Map parameters){
+    protected Object getUnique(Class clazz, String hql, Map parameters = null){
         if (parameters == null){
             parameters = []
         }
