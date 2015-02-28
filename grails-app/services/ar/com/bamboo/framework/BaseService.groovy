@@ -1,5 +1,6 @@
 package ar.com.bamboo.framework
 
+import ar.com.bamboo.framework.persistence.PaginatedResult
 import grails.transaction.Transactional
 
 class BaseService {
@@ -30,11 +31,11 @@ class BaseService {
         return clazz.get(id)
     }
 
-    protected List<Object> listWithLimit(Class clazz,  where,  Map paramsQuery){
+    protected PaginatedResult listWithLimit(Class clazz,  where,  Map paramsQuery){
         def query = clazz.where(where)
         Integer count = query.count()
         List<Object> objects = query.list(paramsQuery ?: [:])
-        return [objects, count]
+        return new PaginatedResult(result: objects, totalRows: count)
     }
 
     /**
@@ -173,7 +174,7 @@ class BaseService {
      * @param parameters
      * @return
      */
-    protected List<Object> listAllHqlWithLimit(Class clazz, String hql, Map parameters){
+    protected PaginatedResult listAllHqlWithLimit(Class clazz, String hql, Map parameters){
         if (parameters == null){
             log.debug("Los parámetros para ejecutar la query vienen vacíos, inicializo el mapa")
             parameters = [:]
@@ -215,6 +216,6 @@ class BaseService {
 
         List<Object> objects = clazz.executeQuery(hql, parameters)
 
-        return [objects, count]
+        return new PaginatedResult(result: objects, totalRows: count)
     }
 }
