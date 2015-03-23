@@ -34,7 +34,7 @@ abstract class BaseController {
         }
     }
 
-    protected void makeViewOnErrorJson(BaseEntity baseEntity){
+    protected void makeViewOnErrorJson(baseEntity){
         List<String> errorsMessage = baseEntity.errors.allErrors.collect {
             message(error:it, encodeAs:'HTML')
         }
