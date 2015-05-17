@@ -58,5 +58,5 @@ else
         git tag -a -m "Tagging version 0.1.0" "v0.1.0"
         git push origin --tags
     fi
-
+    
 fi

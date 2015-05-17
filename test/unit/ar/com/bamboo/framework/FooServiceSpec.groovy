@@ -1,5 +1,6 @@
 package ar.com.bamboo.framework
 
+import ar.com.bamboo.framework.persistence.PaginatedResult
 import grails.gorm.DetachedCriteria
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
@@ -8,9 +9,9 @@ import spock.lang.Specification
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
-@TestFor(BaseService)
+@TestFor(FooService)
 @Mock([Person])
-class BaseServiceSpec extends Specification {
+class FooServiceSpec extends Specification {
 
     def setup() {
     }
@@ -25,16 +26,17 @@ class BaseServiceSpec extends Specification {
         Person personWithoutErrors = new Person(name: "Mariano")
 
         when: "Cuando se intenta guardar un objeto que tiene que tirar error"
-        boolean errors = service.save(personWithErrors)
+        boolean success = service.save(personWithErrors)
 
         then: "El metodo devuelve los errores"
-        !errors
+        !success
 
         when: "Cuando se guarda un objeto sin errores"
-        errors = service.save(personWithoutErrors)
+        success = service.save(personWithoutErrors)
+
 
         then: "El metodo no devuelve los errores vacios y el id del objeto cargado"
-        errors
+        success
         personWithoutErrors.id
     }
 
@@ -67,18 +69,18 @@ class BaseServiceSpec extends Specification {
         } as DetachedCriteria<Person>
         Map params = [max: 5]
         when: "Cuando busco objetos de alguna clase con limite 5 y sólo habilitado"
-        def (List<Person> listResult, Integer count) = service.listWithLimit(Person.class, where, params)
+        PaginatedResult paginatedResult = service.listWithLimit(Person.class, where, params)
         then: "El el resultado es el esperado"
-        listResult
-        listResult.size() == 5
-        count == 10
+        paginatedResult.result
+        paginatedResult.result.size() == 5
+        paginatedResult.totalRows == 10
 
         when: "Cuando se busca sin parametros"
-        (listResult, count) = service.listWithLimit(Person.class, where, null)
+        paginatedResult = service.listWithLimit(Person.class, where, null)
         then: "El resultado es el total sin limite"
-        listResult
-        listResult.size() == 10
-        count == 10
+        paginatedResult.result
+        paginatedResult.result.size()  == 10
+        paginatedResult.totalRows == 10
     }
 
     void "test listAll method"() {
