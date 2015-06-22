@@ -9,7 +9,7 @@ compile ":grails-bamboo-architecture:0.1.2"
 
 #Build
 
-Para compilar el proyecto e intalarlo localmente se debe ejecutar
+Para compilar el proyecto e instalarlo localmente se debe ejecutar
 
  ```grails
 grails maven-install
