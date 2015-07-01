@@ -6,7 +6,7 @@ import groovy.transform.CompileStatic
  * Created by orko on 05/08/14.
  */
 @CompileStatic
-abstract class BaseEntity {
+abstract class BaseEntity implements Serializable{
 
     boolean enabled
     Date dateCreated
