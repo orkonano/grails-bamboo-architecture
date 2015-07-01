@@ -9,7 +9,7 @@ compile ":grails-bamboo-architecture:0.1.2"
 
 #Build
 
-Para compilar el proyecto e intalarlo localmente se debe ejecutar
+Para compilar el proyecto e instalarlo localmente se debe ejecutar
 
  ```grails
 grails maven-install
@@ -58,7 +58,7 @@ Se ejecutan test unitarios.
 
 ## Domain
 Existe una clase base *EntityBase*, la cual tiene un property *enabled* e implementado el método *beforeInsert()*, 
-donde se pone siempre en true a el tributo *enabled*.
+donde se pone siempre en true a el atributo *enabled*.
 El dominio *EntityBase* se encuentra dentro de la carpeta src/grovvy. No la ponemos como artefacto de grails porque no queremos tener herencia en la base de datos.
 
 ## Service
