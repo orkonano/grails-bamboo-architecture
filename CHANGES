@@ -1,9 +1,12 @@
+Version 1.1.0:
+ - developer: Agrego exceptiones generales y el manejo en BaseController de las mismas. Además agrego el manejo de notFound y forbidden
+ - Merge branch 'hot-fix-v1.0.0' into developer
+
 Version 1.0.1:
  - Merge branch 'hot-fix-v1.0.0'
  - hot-fix-v1.0.0: Cambio la configuración de travis para que corra los test en los branch hotfix y release
  - hot-fix-v1.0.0: Cambio el archivo de bump-version para que no tagee y no comitee. Eso se hace en el master
  - hot-fix-v1.0.0: Hago serialize a la clase EntityBase ya que me había olvidado y estaba generando errores
- - Merge branch 'release-1.0.0'
 
 Version 1.0.0:
  - Cambio la versión del plugin y modifico el README.md
