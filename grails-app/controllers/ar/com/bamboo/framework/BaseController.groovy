@@ -1,38 +1,13 @@
 package ar.com.bamboo.framework
 
-import ar.com.bamboo.framework.domains.BaseEntity
+import ar.com.bamboo.framework.exceptions.ForbiddenException
+import ar.com.bamboo.framework.exceptions.NotFoundException
 import grails.converters.JSON
-import org.springframework.web.multipart.commons.CommonsMultipartFile
 
-import static org.springframework.http.HttpStatus.METHOD_NOT_ALLOWED
+import static org.springframework.http.HttpStatus.FORBIDDEN
 import static org.springframework.http.HttpStatus.NOT_FOUND
 
-abstract class BaseController {
-
-    protected void notFound() {
-        withFormat {
-            json {
-                response.status = NOT_FOUND.value()
-            }
-
-            '*'{
-                response.status = NOT_FOUND.value()
-            }
-        }
-    }
-
-    protected void notAllow() {
-        withFormat {
-            json {
-                def result = [success: false, status: METHOD_NOT_ALLOWED]
-                render result as JSON
-
-            }
-            '*' {
-                response.status = METHOD_NOT_ALLOWED.value()
-            }
-        }
-    }
+abstract class BaseController{
 
     protected void makeViewOnErrorJson(baseEntity){
         List<String> errorsMessage = baseEntity.errors.allErrors.collect {
@@ -69,5 +44,40 @@ abstract class BaseController {
         listParameters.max = params.max
         listParameters.offset = params.offset
         return listParameters
+    }
+
+    def handleForbiddenException(ForbiddenException e) {
+        this.forbidden()
+        return
+    }
+
+    def handleNotFoundException(NotFoundException e) {
+        this.notFound()
+        return
+    }
+
+    protected void notFound() {
+        withFormat {
+            json {
+                response.status = NOT_FOUND.value()
+            }
+
+            '*'{
+                response.status = NOT_FOUND.value()
+            }
+        }
+    }
+
+    protected void forbidden() {
+        withFormat {
+            json {
+                def result = [success: false, status: FORBIDDEN]
+                render result as JSON
+
+            }
+            '*' {
+                response.status = FORBIDDEN.value()
+            }
+        }
     }
 }
