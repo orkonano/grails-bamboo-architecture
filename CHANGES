@@ -1,3 +1,12 @@
+Version 1.1.1:
+ - developer: Se mejora la forma de devolver los errores en las request. Siempre se modifica el status response
+ - Merge develpor into master
+ - Merge branch 'master' of https://github.com/orkonano/grails-bamboo-architecture
+ - Version bump to 1.0.1
+ - Merge branch 'hot-fix-v1.0.0'
+ - Update README.md
+ - Update README.md
+
 Version 1.1.0:
  - developer: Agrego exceptiones generales y el manejo en BaseController de las mismas. Además agrego el manejo de notFound y forbidden
  - Merge branch 'hot-fix-v1.0.0' into developer
