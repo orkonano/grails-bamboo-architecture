@@ -1,14 +1,34 @@
 package ar.com.bamboo.framework
 
-import ar.com.bamboo.framework.controller.ErrorRendererController
 import ar.com.bamboo.framework.exceptions.ForbiddenException
 import ar.com.bamboo.framework.exceptions.NotFoundException
+import grails.converters.JSON
 import org.springframework.http.HttpStatus
 
 import static org.springframework.http.HttpStatus.FORBIDDEN
 import static org.springframework.http.HttpStatus.NOT_FOUND
 
-abstract class BaseController implements ErrorRendererController {
+abstract class BaseController{
+
+    protected void makeViewOnErrorJson(baseEntity){
+        List<String> errorsMessage = baseEntity.errors.allErrors.collect {
+            message(error:it, encodeAs:'HTML')
+        }
+
+        List<String> fieldsError = baseEntity.errors.fieldErrors.collect {
+            it.field
+        }
+
+        def result = [success: false, model: [errorsMessage: errorsMessage, fieldsError: fieldsError]]
+        render result as JSON
+        return
+    }
+
+    protected void makeViewOnErrorJson(String message){
+        def result = [success: false, model: [errorsMessage: [message]]]
+        render result as JSON
+        return
+    }
 
     protected Integer setMaxParameter(){
         params.max = Math.min(params.max ? Integer.valueOf(params.max) : 10, 100)
@@ -18,7 +38,6 @@ abstract class BaseController implements ErrorRendererController {
         params.offset = params.offset ? Integer.valueOf(params.offset) : 0
     }
 
-    @Deprecated
     protected Map getListParameters(){
         this.setOffsetParameter()
         this.setMaxParameter()
@@ -38,24 +57,11 @@ abstract class BaseController implements ErrorRendererController {
         return
     }
 
-    public void notFound() {
-        this.generateResponse(NOT_FOUND)
+    protected void notFound() {
+        response.status = NOT_FOUND.value()
     }
 
-    public void forbidden() {
-        this.generateResponse(FORBIDDEN)
+    protected void forbidden() {
+        response.status = FORBIDDEN.value()
     }
-
-    private void generateResponse(HttpStatus httpStatus){
-        request.withFormat {
-            json {
-                response.status = httpStatus.value()
-            }
-            '*'{
-                response.sendError(httpStatus.value())
-            }
-        }
-    }
-
-
 }
