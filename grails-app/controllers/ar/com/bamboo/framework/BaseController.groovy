@@ -3,7 +3,6 @@ package ar.com.bamboo.framework
 import ar.com.bamboo.framework.exceptions.ForbiddenException
 import ar.com.bamboo.framework.exceptions.NotFoundException
 import grails.converters.JSON
-import org.springframework.http.HttpStatus
 
 import static org.springframework.http.HttpStatus.FORBIDDEN
 import static org.springframework.http.HttpStatus.NOT_FOUND
@@ -58,10 +57,10 @@ abstract class BaseController{
     }
 
     protected void notFound() {
-        response.status = NOT_FOUND.value()
+        response.sendError(NOT_FOUND.value())
     }
 
     protected void forbidden() {
-        response.status = FORBIDDEN.value()
+        response.sendError(FORBIDDEN.value())
     }
 }
