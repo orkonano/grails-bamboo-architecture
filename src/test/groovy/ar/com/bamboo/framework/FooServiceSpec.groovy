@@ -1,5 +1,7 @@
 package ar.com.bamboo.framework
 
+import ar.com.bamboo.framework.demo.FooService
+import ar.com.bamboo.framework.demo.Person
 import ar.com.bamboo.framework.persistence.PaginatedResult
 import grails.gorm.DetachedCriteria
 import grails.test.mixin.TestFor

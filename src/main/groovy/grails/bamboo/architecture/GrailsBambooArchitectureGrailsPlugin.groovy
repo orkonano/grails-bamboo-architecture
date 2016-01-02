@@ -6,8 +6,7 @@ class GrailsBambooArchitectureGrailsPlugin {
     // resources that are excluded from plugin packaging
     def pluginExcludes = [
             "grails-app/views/error.gsp",
-            "grails-app/domain/ar/com/bamboo/framework/Person.groovy",
-            "grails-app/services/ar/com/bamboo/framework/FooService.groovy"
+            "**/demo/**",
     ]
 
     // TODO Fill in these fields
@@ -20,7 +19,7 @@ Tanto a nivel de Clases de Servicio, como de Dominio
 '''
 
     // URL to the plugin's documentation
-    def documentation = "https://github.com/orkonano/grails-bamboo-architecture"
+    def documentation = "https://github.com/BambooArg/grails-bamboo-architecture"
 
     // Extra (optional) plugin metadata
 
@@ -35,10 +34,10 @@ Tanto a nivel de Clases de Servicio, como de Dominio
                       [name: "Maximiliano Micciullo", email: "mmmicciullo@gmail.com"]]
 
     // Location of the plugin's issue tracker.
-    def issueManagement = [system: "Github", url: "https://github.com/orkonano/grails-bamboo-architecture/issues"]
+    def issueManagement = [system: "Github", url: "https://github.com/BambooArg/grails-bamboo-architecture/issues"]
 
     // Online location of the plugin's browseable source code.
-    def scm = [url: "https://github.com/orkonano/grails-bamboo-architecture.git"]
+    def scm = [url: "https://github.com/BambooArg/grails-bamboo-architecture.git"]
 
     def doWithWebDescriptor = { xml ->
         // TODO Implement additions to web.xml (optional), this event occurs before

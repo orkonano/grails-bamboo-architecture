@@ -1,5 +1,6 @@
-package ar.com.bamboo.framework
+package ar.com.bamboo.framework.demo
 
+import ar.com.bamboo.framework.BaseService
 import ar.com.bamboo.framework.persistence.PaginatedResult
 import grails.gorm.DetachedCriteria
 import grails.transaction.Transactional
