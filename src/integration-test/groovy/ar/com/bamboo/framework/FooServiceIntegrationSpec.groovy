@@ -1,5 +1,6 @@
 package ar.com.bamboo.framework
 
+import ar.com.bamboo.framework.demo.Person
 import ar.com.bamboo.framework.persistence.PaginatedResult
 import spock.lang.Specification
 
