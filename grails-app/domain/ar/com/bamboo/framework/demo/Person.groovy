@@ -1,4 +1,4 @@
-package ar.com.bamboo.framework
+package ar.com.bamboo.framework.demo
 
 import ar.com.bamboo.framework.domains.BaseEntity
 
