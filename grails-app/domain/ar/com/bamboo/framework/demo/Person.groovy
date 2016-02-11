@@ -2,7 +2,8 @@ package ar.com.bamboo.framework.demo
 
 import ar.com.bamboo.framework.domains.BaseEntity
 
-class Person extends BaseEntity{
+
+class Person implements BaseEntity {
 
     String name
 
@@ -10,8 +11,4 @@ class Person extends BaseEntity{
         name blank: false
     }
 
-    @Override
-    protected void executeMoreBeforeInsert() {
-
-    }
 }

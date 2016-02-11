@@ -46,7 +46,7 @@ class FooServiceSpec extends Specification {
         personWithoutErrors.id
     }
 
-    void "disable method"() {
+   void "disable method"() {
         given:
         Person personToDisable = new Person(name: "Mariano")
         personToDisable.save(flush: true, failOnError: true)
