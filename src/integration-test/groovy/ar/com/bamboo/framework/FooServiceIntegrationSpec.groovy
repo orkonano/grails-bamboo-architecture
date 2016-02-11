@@ -2,11 +2,13 @@ package ar.com.bamboo.framework
 
 import ar.com.bamboo.framework.demo.Person
 import ar.com.bamboo.framework.persistence.PaginatedResult
+import grails.test.mixin.integration.Integration
 import spock.lang.Specification
 
 /**
  *
  */
+@Integration
 class FooServiceIntegrationSpec extends Specification {
 
     def fooService

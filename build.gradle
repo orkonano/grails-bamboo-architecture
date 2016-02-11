@@ -8,27 +8,23 @@ buildscript {
     }
     dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
-        classpath "org.grails.plugins:hibernate:4.3.10.5"
     }
 }
 
 plugins {
     id "io.spring.dependency-management" version "0.5.4.RELEASE"
-    id "com.jfrog.bintray" version "1.2"
 }
 
-version "2.0.1"
+version "2.0.2-SNAPSHOT"
 group "org.grails.plugins"
 
 apply plugin: 'maven-publish'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: "spring-boot"
-apply plugin: "org.grails.grails-plugin"
 apply plugin: "org.grails.grails-gsp"
-// Used for publishing to central repository, remove if not needed
-apply from:'https://raw.githubusercontent.com/grails/grails-profile-repository/master/profiles/plugin/templates/grailsCentralPublishing.gradle'
-apply from:'https://raw.githubusercontent.com/grails/grails-profile-repository/master/profiles/plugin/templates/bintrayPublishing.gradle'
+apply plugin: "org.grails.grails-plugin"
+apply plugin: "org.grails.grails-plugin-publish"
 
 ext {
     grailsVersion = project.grailsVersion
@@ -62,8 +58,9 @@ dependencies {
     provided "org.grails:grails-dependencies"
     provided 'javax.servlet:javax.servlet-api:3.1.0'
 
-    runtime "org.grails.plugins:hibernate"
+    runtime "org.grails.plugins:hibernate4"
     runtime "org.springframework.boot:spring-boot-starter-tomcat"
+    runtime 'mysql:mysql-connector-java:5.1.29'
 
     testCompile "org.grails:grails-plugin-testing"
 
@@ -83,6 +80,21 @@ jar {
 
 task wrapper(type: Wrapper) {
     gradleVersion = gradleWrapperVersion
+}
+
+grailsPublish {
+    // TODO: Provide values here
+    user = 'user'
+    key = 'key'
+    githubSlug = 'foo/bar'
+    license {
+        name = 'Apache-2.0'
+    }
+    title = "Bamboo Commons"
+    desc = "Commons to use into Bamboo projects"
+    developers = [orkonano: "Mariano Kfuri", maximicciu: "Maximiliano Micciullo"]
+    portalUser = ""
+    portalPassword = ""
 }
 
 //Publish
