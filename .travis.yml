@@ -1,20 +1,18 @@
-sudo: false
 language: groovy
-branches:
-  only:
-    - master
-    - developer
-    - /^hotfix-.*$/
-    - /^release-.*$/
-    - migrate-grails3.x
-
-
+sudo: false
+jdk:
+- oraclejdk7
 before_script:
- - chmod +x gradlew
- - chmod +x travis-build.sh
-
+- chmod +x gradlew
+- chmod +x travis-build.sh
+- chmod +x travis-publish.sh
 script: ./travis-build.sh
-
+after_success:
+- ./travis-publish.sh
 notifications:
   slack:
-    secure: CH8XkPAueZBVF60DaFRAM6ajNiG3mRCBZFlRbNd5Ya1ivPUSKYJQp1jJVoSQizd4EabEbK1/1+dDwBm+OiEoNN3FAzkleC8DZNSh/EjmQT2RArLZrv41dx2RlKkMyB0oF16mN6ivDGQofqDqBNDcWOZGpgnewGMgHMWtEluAOrA=
+    secure: fKEOfnUBTcRYXYwknQXPKsNPgXCriw27fFd0heqAKx3Xj+OiosMmonnNHsuoQ7gWlMrzwcG4BD0sUmeTWYPexj35T5anKhrtEh7wG6NOIjOtGM2JF326IAhIG55xcR/FzTchAn3GXKGcXV3DTgnjFeHmoCcp08YfpoHLlMBULNU=
+env:
+  global:
+  - secure: bKcbdoRfU9e8tTnEyuWz+q6EJzugS+Otv+0yVXUs/8WA1ix1cktBwT8DJx+97r2jUw9KynWnxeg+yuJtoavvlO+xeJV6DPkx+PgNKZiQ9yxf5ckZAN37B10t3y20/UMv3WfgP28ctBEx4w1rLZDczr19F5t5mJ5V5DvWgq55DUM=
+  - secure: fo9d+rVnjoimBFk/7sRQM7amkngD4vJC2NxxNRdPqLXM6FEfYk6LdILskYxjokqYMcK3C7pLblDFW9X5vpqTCuW5bluzM6m9fasbBP9nBU94epJ0NvWNSxqqhKdqI8/B/JeMFLo885bMOpUQZIvjmDpTUbxXHD9YBUCr//NFeAc=

@@ -23,15 +23,7 @@ Para publicar un release se debe ejecutar
 
 ```script
 
-gradle publishMavenPublicationToBambooReleaseRepository
-
-```
-
-Para publicar un snapshot se debe ejecutar
-
-```script
-
-gradle publishMavenPublicationToBambooSNAPSHOTRepository
+gradle publish
 
 ```
 
@@ -52,7 +44,6 @@ bambooRepositoryUsername
 bambooRepositoryPassword
 
 ```
-
 
 
 #Test

@@ -1,6 +1,8 @@
 package grails.bamboo.architecture
 
-class GrailsBambooArchitectureGrailsPlugin {
+import grails.plugins.Plugin
+
+class GrailsBambooArchitectureGrailsPlugin extends Plugin{
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "3.0 > *"
     // resources that are excluded from plugin packaging
@@ -43,9 +45,9 @@ Tanto a nivel de Clases de Servicio, como de Dominio
         // TODO Implement additions to web.xml (optional), this event occurs before
     }
 
-    def doWithSpring = {
-        // TODO Implement runtime spring config (optional)
-    }
+    Closure doWithSpring() {{->
+
+    }}
 
     def doWithDynamicMethods = { ctx ->
         // TODO Implement registering dynamic methods to classes (optional)
