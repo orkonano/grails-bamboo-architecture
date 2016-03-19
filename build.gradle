@@ -15,7 +15,13 @@ plugins {
     id "io.spring.dependency-management" version "0.5.4.RELEASE"
 }
 
-version "2.0.2"
+ext {
+    grailsBambooArchitectureVersion = '2.0.3'
+    grailsVersion = project.grailsVersion
+    gradleWrapperVersion = project.gradleWrapperVersion
+}
+
+version grailsBambooArchitectureVersion
 group "org.grails.plugins"
 
 apply plugin: 'maven-publish'
@@ -25,11 +31,6 @@ apply plugin: "spring-boot"
 apply plugin: "org.grails.grails-gsp"
 apply plugin: "org.grails.grails-plugin"
 apply plugin: "org.grails.grails-plugin-publish"
-
-ext {
-    grailsVersion = project.grailsVersion
-    gradleWrapperVersion = project.gradleWrapperVersion
-}
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
@@ -104,21 +105,16 @@ def bambooRepositoryPassword = System.getenv("BAMBOO_REPOSITORY_PASSWORD") ?: pr
 publishing {
     repositories {
         maven {
-            name "bambooRelease"
             credentials {
                 username bambooRepositoryUsername
                 password bambooRepositoryPassword
             }
-            url "http://nexus-bambooarg.rhcloud.com/nexus/content/repositories/releases/"
-        }
+            if (version.endsWith("-SNAPSHOT")){
+                url "http://nexus-bambooarg.rhcloud.com/nexus/content/repositories/snapshots/"
+            }else{
+                url "http://nexus-bambooarg.rhcloud.com/nexus/content/repositories/releases/"
 
-        maven {
-            name "bambooSNAPSHOT"
-            credentials {
-                username bambooRepositoryUsername
-                password bambooRepositoryPassword
             }
-            url "http://nexus-bambooarg.rhcloud.com/nexus/content/repositories/snapshots/"
         }
     }
 }
